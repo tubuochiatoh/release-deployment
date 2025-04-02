@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: finishline-mysql-cm
-  namespace: database
+  namespace: databases
 data:
   MYSQL_DATABASE: finishlinedb
   MYSQL_USER: finishline
