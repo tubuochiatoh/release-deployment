@@ -25,7 +25,7 @@ spec:
             - name: DB_VENDOR
               value: mysql
             - name: KC_DB_URL
-              value: "jdbc:mysql://mysql.databases.svc.cluster.local:3306/keycloak_db"
+              value: "jdbc:mysql://mysql.databases:3306/keycloak_db"
             - name: KC_DB_USERNAME
               valueFrom:
                 secretKeyRef:
