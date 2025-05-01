@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: keycloak
-  namespace: databases
+  namespace: keycloak
 spec:
   replicas: 1
   selector:
@@ -23,16 +23,16 @@ spec:
             - name: KC_DB
               value: mysql
             - name: KC_DB_URL
-              value: jdbc:mysql://mysql-0.mysql.databases.svc.cluster.local:3306/finishlinedb
+              value: jdbc:mysql://mysql.databases.svc.cluster.local:3306/finishlinedb
             - name: KC_DB_USERNAME
               valueFrom:
-                configMapKeyRef:
-                  name: finishline-mysql-cm
+                secretKeyRef:
+                  name: db-credentials
                   key: MYSQL_USER
             - name: KC_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: finishline-mysql-secret
+                  name: db-credentials
                   key: MYSQL_PASSWORD
             - name: KEYCLOAK_ADMIN
               value: admin
@@ -50,3 +50,14 @@ spec:
               port: 8080
             initialDelaySeconds: 30
             periodSeconds: 10
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-credentials
+  namespace: keycloak
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: cGFzc3dvcmQ=   # base64 encoded: echo -n 'password' | base64
+  MYSQL_PASSWORD: dXNlcnBhc3M=       # base64 encoded: echo -n 'userpass' | base64
+  MYSQL_USER: ZmluaXNobGluZQ==
