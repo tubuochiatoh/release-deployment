@@ -22,8 +22,10 @@ spec:
           env:
             - name: KC_DB
               value: mysql
+            - name: DB_VENDOR
+              value: mysql
             - name: KC_DB_URL
-              value: jdbc:mysql://mysql.databases.svc.cluster.local:3306/finishlinedb
+              value: "jdbc:mysql://mysql.databases.svc.cluster.local:3306/keycloak_db?createDatabaseIfNotExist=true"
             - name: KC_DB_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -38,10 +40,12 @@ spec:
               value: admin
             - name: KEYCLOAK_ADMIN_PASSWORD
               value: admin
-          # readinessProbe:
-          #   httpGet:
-          #     path: /health/ready
-          #     port: 8080
+            - name: KC_PROXY
+              value: edge
+          readinessProbe:
+            httpGet:
+              path: /realms/master
+              port: 8080
           #   initialDelaySeconds: 20
           #   periodSeconds: 10
           # livenessProbe:
