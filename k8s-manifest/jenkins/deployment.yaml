@@ -26,8 +26,6 @@ spec:
                      operator: In
                      values:
                       - k8s-worker-node-1
-                      - k8s-worker-node-2
-                      - k8s-worker-node 
       containers:
         - name: jenkins
           image: jenkins/jenkins:lts

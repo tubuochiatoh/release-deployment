@@ -17,7 +17,7 @@ spec:
     name: jenkins-pvc
     namespace: jenkins
   capacity:
-    storage: 10Gi
+    storage: 3Gi
   accessModes:
     - ReadWriteOnce
   local:
@@ -30,8 +30,6 @@ spec:
           operator: In
           values:
            - k8s-worker-node-1
-           - k8s-worker-node-2
-           - k8s-worker-node
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
