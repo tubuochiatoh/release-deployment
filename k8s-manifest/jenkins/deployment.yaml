@@ -51,7 +51,16 @@ spec:
           volumeMounts:
             - name: jenkins-data
               mountPath: /var/jenkins_home
-      volumes:
-        - name: jenkins-data
-          persistentVolumeClaim:
-              claimName: jenkins-pvc
+      # volumes:
+      #   - name: jenkins-data
+      #     persistentVolumeClaim:
+      #         claimName: jenkins-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: jenkins-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: local-storage
+      resources:
+        requests:
+          storage: 5Gi    
