@@ -57,7 +57,7 @@ spec:
       #         claimName: jenkins-pvc
   volumeClaimTemplates:
   - metadata:
-      name: jenkins-storage
+      name: jenkins-data
     spec:
       accessModes: ["ReadWriteOnce"]
       storageClassName: local-storage
