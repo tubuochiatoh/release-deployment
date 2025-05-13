@@ -14,7 +14,7 @@ metadata:
 spec:
   storageClassName: local-storage
   claimRef:
-    name: jenkins-pvc
+    name: jenkins-data
     namespace: jenkins
   capacity:
     storage: 3Gi
@@ -40,6 +40,7 @@ spec:
   storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
+  volumeName: jenkins-pv  
   resources:
     requests:
       storage: 3Gi
