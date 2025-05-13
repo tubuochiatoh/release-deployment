@@ -56,11 +56,11 @@ spec:
       #     persistentVolumeClaim:
       #         claimName: jenkins-pvc
   volumeClaimTemplates:
-    - metadata:
-        name: jenkins-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: local-storage
-        resources:
-          requests:
-            storage: 5Gi
+  - metadata:
+      name: jenkins-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: local-storage
+      resources:
+        requests:
+          storage: 3Gi
