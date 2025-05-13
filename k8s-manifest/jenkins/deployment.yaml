@@ -17,6 +17,17 @@ spec:
             fsGroup: 1000
             runAsUser: 1000
       serviceAccountName: admin
+       affinity:
+         nodeAffinity:
+           requiredDuringSchedulingIgnoredDuringExecution:
+             nodeSelectorTerms:
+               - matchExpressions:
+                   - key: kubernetes.io/hostname
+                     operator: In
+                     values:
+                      - k8s-worker-node-1
+                      - k8s-worker-node-2
+                      - k8s-worker-node 
       containers:
         - name: jenkins
           image: jenkins/jenkins:lts
@@ -51,16 +62,8 @@ spec:
           volumeMounts:
             - name: jenkins-data
               mountPath: /var/jenkins_home
-      # volumes:
-      #   - name: jenkins-data
-      #     persistentVolumeClaim:
-      #         claimName: jenkins-pvc
-  volumeClaimTemplates:
-  - metadata:
-      name: jenkins-data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      storageClassName: local-storage
-      resources:
-        requests:
-          storage: 3Gi
+      volumes:
+        - name: jenkins-data
+          persistentVolumeClaim:
+              claimName: jenkins-data
+  
